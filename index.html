@@ -5,9 +5,337 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Catalyst Growth Consulting | Programmatic & DSP Consulting for SMBs</title>
   <meta name="description" content="Programmatic advertising consulting for SMBs and small agencies. DSP strategy & setup, media buying optimization, platform negotiations, training & playbooks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0b0f14;         /* dark slate */
+      --bg-soft: #101722;    /* softer panel */
+      --text: #e6edf6;       /* near-white */
+      --muted: #99a7b5;      /* muted text */
+      --accent: #22c55e;     /* green accent */
+      --accent-2: #38bdf8;   /* blue accent (secondary) */
+      --card: #121a26;
+      --border: #1f2a3a;
+      --maxw: 1120px;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji"; }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+    /* Header */
+    header { position: sticky; top: 0; z-index: 50; background: rgba(11,15,20,.7); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .2px; }
+    .brand .logo { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: linear-gradient(135deg, var(--accent), #16a34a); color: #06120a; font-weight: 800; }
+    nav ul { list-style: none; display: flex; gap: 22px; margin: 0; padding: 0; }
+    nav a { color: var(--text); opacity: .9; font-weight: 500; }
+    .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #06120a; padding: 10px 14px; border-radius: 10px; font-weight: 700; border: 1px solid #16a34a; box-shadow: var(--shadow); }
+    .cta:hover { filter: brightness(1.05); text-decoration: none; }
+    .menu-btn { display: none; border: 1px solid var(--border); background: var(--bg-soft); color: var(--text); padding: 8px 10px; border-radius: 10px; }
+
+    /* Hero */
+    .hero { padding: 72px 0 48px; background: radial-gradient(1000px 600px at 70% -10%, rgba(56,189,248,.25), transparent 60%), radial-gradient(900px 500px at -10% -20%, rgba(34,197,94,.20), transparent 60%); }
+    .hero h1 { font-size: clamp(32px, 5vw, 52px); line-height: 1.08; margin: 0 0 14px; letter-spacing: -.5px; }
+    .hero p { max-width: 820px; color: var(--muted); font-size: 18px; line-height: 1.6; margin: 0 0 26px; }
+    .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-outline { border: 1px solid var(--border); background: var(--bg-soft); color: var(--text); padding: 10px 14px; border-radius: 10px; font-weight: 700; }
+
+    /* Sections */
+    section { padding: 56px 0; }
+    .section-title { font-size: 28px; margin: 0 0 12px; }
+    .section-sub { color: var(--muted); margin: 0 0 28px; }
+
+    /* Cards */
+    .grid { display: grid; gap: 18px; }
+    .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+    .card h3 { margin: 0 0 6px; font-size: 18px; }
+    .muted { color: var(--muted); }
+
+    /* Pricing */
+    .pricing { display: grid; gap: 18px; grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+    .plan { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+    .plan h4 { margin: 0 0 12px; font-size: 18px; }
+    .price { font-size: 28px; font-weight: 800; margin: 6px 0 10px; }
+    .features { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 8px; }
+    .features li { display: flex; gap: 8px; }
+    .plan .cta { margin-top: auto; align-self: flex-start; }
+    .plan.recommended { border-color: rgba(56,189,248,.6); box-shadow: 0 0 0 2px rgba(56,189,248,.15), var(--shadow); }
+
+    /* About */
+    .about { display: grid; grid-template-columns: 1fr 1.2fr; gap: 24px; align-items: center; }
+    .avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-2), var(--accent)); display: grid; place-items: center; font-weight: 800; color: #06121a; box-shadow: var(--shadow); }
+    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    .kpi { background: var(--bg-soft); border: 1px solid var(--border); border-radius: 12px; padding: 12px; text-align: center; }
+    .kpi b { font-size: 18px; }
+
+    /* Contact */
+    form { display: grid; gap: 12px; }
+    label { font-weight: 600; font-size: 14px; }
+    input, textarea, select { width: 100%; padding: 12px 12px; border-radius: 10px; border: 1px solid var(--border); background: #0d1420; color: var(--text); }
+    textarea { min-height: 120px; resize: vertical; }
+    .note { font-size: 12px; color: var(--muted); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .grid.cols-3 { grid-template-columns: 1fr 1fr; }
+      .pricing { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      nav ul { display: none; }
+      .menu-btn { display: inline-flex; }
+      .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <h1>Site Generated</h1>
-  <p>This is a simplified placeholder version. The full HTML/CSS/JS site was generated in the canvas document. You can copy-paste that code into this file to deploy.</p>
+  <header>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">CG</div>
+        <span>Catalyst Growth Consulting</span>
+      </div>
+      <nav>
+        <ul id="menu">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#case-studies">Case Studies</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="cta" href="#contact">Get a Free Consult</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <h1>Unlock Unstoppable Ad Growth</h1>
+        <p>
+          Programmatic & DSP consulting for SMBs, e‑commerce shops, and boutique agencies. 
+          I plan, set up, and optimize omnichannel campaigns — and build the playbooks your team can run with.
+        </p>
+        <div class="actions">
+          <a class="cta" href="#contact">Book a 30‑min Intro</a>
+          <a class="btn-outline" href="#services">See Services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-sub">Focused, high‑leverage work that improves ROAS, reduces waste, and levels‑up your team.</p>
+        <div class="grid cols-3">
+          <article class="card">
+            <h3>DSP Strategy & Setup</h3>
+            <p class="muted">Choose the right platform (DV360, TTD, etc.), build the account structure, and implement high‑impact targeting.
+            Includes audit, roadmap, and first‑90‑day plan.</p>
+          </article>
+          <article class="card">
+            <h3>Media Buying Optimization</h3>
+            <p class="muted">Bidding frameworks, budget allocation, and creative testing. Ongoing optimization to lift ROAS and lower CPM/CAC.</p>
+          </article>
+          <article class="card">
+            <h3>Platform Setup & Negotiations</h3>
+            <p class="muted">Navigate contracts and partner deals. Align incentives, secure support, and integrate data & measurement partners.</p>
+          </article>
+          <article class="card">
+            <h3>Brand Safety & QA</h3>
+            <p class="muted">Inclusion lists, blocklists, fraud mitigation, and monitoring. Gold‑standard practices to protect spend and brand.</p>
+          </article>
+          <article class="card">
+            <h3>Playbooks & Training</h3>
+            <p class="muted">Custom optimization playbooks, RFP templates, and hands‑on workshops for small teams and freelancers.</p>
+          </article>
+          <article class="card">
+            <h3>Fractional Programmatic Lead</h3>
+            <p class="muted">Retainer model. Ongoing strategy, oversight, and enablement — your on‑call head of programmatic.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="container">
+        <h2 class="section-title">Pricing</h2>
+        <p class="section-sub">Transparent packages for different needs. Custom scopes available on request.</p>
+        <div class="pricing">
+          <div class="plan">
+            <h4>Starter — Audit & Strategy</h4>
+            <div class="price">$500</div>
+            <ul class="features">
+              <li>✔ 2‑hour consult (Zoom)</li>
+              <li>✔ Account/campaign audit</li>
+              <li>✔ 1‑page action plan (quick wins)</li>
+              <li>✔ 7‑day email follow‑up</li>
+            </ul>
+            <a class="cta" href="#contact">Book Starter</a>
+          </div>
+          <div class="plan recommended">
+            <h4>Standard — Growth Accelerator</h4>
+            <div class="price">$1,500</div>
+            <ul class="features">
+              <li>✔ Strategy workshop (half‑day)</li>
+              <li>✔ 3–5 page playbook & media plan</li>
+              <li>✔ Tracking & brand‑safety checklist</li>
+              <li>✔ 30‑day optimization support</li>
+            </ul>
+            <a class="cta" href="#contact">Book Standard</a>
+          </div>
+          <div class="plan">
+            <h4>Premium — Fractional Lead</h4>
+            <div class="price">$5,000 / 3 mos</div>
+            <ul class="features">
+              <li>✔ Weekly check‑ins & KPI reviews</li>
+              <li>✔ Ongoing optimization & testing</li>
+              <li>✔ Team enablement & training</li>
+              <li>✔ Priority email/slack support</li>
+            </ul>
+            <a class="cta" href="#contact">Book Premium</a>
+          </div>
+        </div>
+        <p class="note" style="margin-top:10px;">Prices are indicative; final scope and pricing confirmed after a discovery call.</p>
+      </div>
+    </section>
+
+    <!-- CASE STUDIES -->
+    <section id="case-studies">
+      <div class="container">
+        <h2 class="section-title">Case Studies</h2>
+        <p class="section-sub">Real‑world outcomes. (Anonymized where required.)</p>
+        <div class="grid cols-2">
+          <article class="card">
+            <h3>E‑com ROAS Lift</h3>
+            <p class="muted">Rebuilt programmatic structure for a niche retailer. New audience & bidding strategy delivered +18% ROAS and +25% new customers in 90 days.</p>
+            <p class="note">Full write‑up coming soon.</p>
+          </article>
+          <article class="card">
+            <h3>Agency Enablement</h3>
+            <p class="muted">White‑label strategy + workshops for a boutique agency. Won 3 new clients in 6 months; saw ~15% average performance improvement.</p>
+            <p class="note">Full write‑up coming soon.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container about">
+        <div>
+          <div class="avatar" aria-hidden="true">WR</div>
+          <div class="kpis">
+            <div class="kpi"><b>$100M+</b><div class="muted">Budgets Managed</div></div>
+            <div class="kpi"><b>12–18%</b><div class="muted">Typical ROAS Lift</div></div>
+            <div class="kpi"><b>10+ yrs</b><div class="muted">AdTech Experience</div></div>
+          </div>
+        </div>
+        <div>
+          <h2 class="section-title">About Wayne Rodrigues</h2>
+          <p class="muted">Ex‑Google and agency strategist turned solopreneur consultant. I help small teams deploy enterprise‑grade programmatic: smarter targeting, cleaner measurement, and playbooks that scale.</p>
+          <p class="muted">I’ve led omnichannel growth across display, video, and advanced TV; negotiated partner deals; and built optimization frameworks that teams can run day‑to‑day.</p>
+          <p class="muted">Based in Toronto. Working with clients across North America.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-sub">Tell me a bit about your goals. I’ll reply within 1 business day to schedule a free 30‑minute consult.</p>
+
+        <!-- Replace the action URL with your Formspree endpoint (free) or remove action to use mailto fallback below. -->
+        <form id="contactForm" action="https://formspree.io/f/your-id" method="POST">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div>
+            <label for="interest">Interested In</label>
+            <select id="interest" name="interest">
+              <option>Starter — Audit & Strategy</option>
+              <option>Standard — Growth Accelerator</option>
+              <option>Premium — Fractional Lead</option>
+              <option>Custom</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Share context, goals, timelines…"></textarea>
+          </div>
+          <button class="cta" type="submit">Send Inquiry</button>
+          <div id="formNote" class="note"></div>
+        </form>
+
+        <p class="note" style="margin-top:10px;">No form? Email <a href="mailto:hello@yourdomain.com">hello@yourdomain.com</a>. You can also link a Calendly for instant booking.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+      <div>© <span id="year"></span> Catalyst Growth Consulting • Toronto • <a href="https://www.linkedin.com/" target="_blank" rel="noreferrer">LinkedIn</a></div>
+      <div class="note">Built with clean HTML/CSS. Ready for GitHub Pages.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const menu = document.getElementById('menu');
+    menuBtn?.addEventListener('click', () => {
+      const showing = getComputedStyle(menu).display !== 'none';
+      menu.style.display = showing ? 'none' : 'flex';
+      menuBtn.setAttribute('aria-expanded', String(!showing));
+      if (!showing) menu.style.flexDirection = 'column';
+    });
+
+    // Smooth scroll for in‑page links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href');
+        if (!id || id === '#') return;
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Optional client‑side submission UX (works nicely with Formspree)
+    const form = document.getElementById('contactForm');
+    const note = document.getElementById('formNote');
+    form?.addEventListener('submit', async (e) => {
+      // If action has a real endpoint, let the browser post normally.
+      if (form.action && !form.action.includes('your-id')) return; // developer must replace
+      e.preventDefault();
+      note.textContent = 'Configure your Formspree endpoint in the form action first.';
+      note.style.color = '#fca5a5';
+    });
+  </script>
 </body>
 </html>
